@@ -1,0 +1,90 @@
+<!--  -->
+<div id="page-wrapper">
+   <div class="container-fluid">
+      <div class="row bg-title">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="white-box">
+                  <h3 class="box-title">Product Table</h3>
+                  <p class="text-muted">This is the table of Product Detail</p>
+                  <table class="table table-striped table-bordered" id="editable-datatable">
+                     <thead>
+                        <tr>
+                            <th> Product Id</th>
+                            <th>Product Image</th>
+                            <th>Category</th>
+                            <th>Product </th>
+                            <th>Price(per Item)</th>
+                            <th>Total Quantity</th>
+                            <th>Status</th>
+                            <th>Page Count-Purchase</th>
+                            <th>Page Count-Sale</th>
+                            <th>Date_Created</th>
+                            <th>Action</th>
+          
+                        </tr>
+                     </thead>
+                     <tbody>
+        <?php if($this->products){
+            foreach ($this->products as $pro) {
+              ?>
+                        <tr id="1" class="gradeX">
+                          <td><?=$pro->getProductId();?></td>
+            <td ><img width="100px" height="100px" src="/images/<?= $pro->getImage(); ?>"></td>
+            <td><?=$pro->getCategory()->getCategory(); ?></td>
+            <td><?=$pro->getName();?></td>
+            <td><?=$pro->getPrice();?></td>
+            <td><?=$pro->getProductQuantity();?></td>
+            <td><?php  if($pro->getStatus()){ echo 'Publish'; }else{ echo 'UnPublish';} ?></td>
+            <td><?= $pro->getPurchaseCount();?></td>
+            <td><?= $pro->getSaleCount();?></td>
+            <td><?=$pro->getCreatedDate(); ?></td>
+            <td>
+              <?php if(!$pro->getStatus()){ ?>
+               <a href="/Product/activate?id=<?= $pro->getProductId();?>" class="btn btn-default btn-rounded"><i class="fa fa-thumbs-up"></i> Publish</a>
+               <?php } ?>
+               <?php if($pro->getStatus()){ ?>
+               <a href="/Product/deactivate?id=<?= $pro->getProductId();?>" class="btn btn-warning btn-rounded"><i class="fa fa-thumbs-down"></i> unPublish</a>
+               <?php } ?>
+               <a class="btn btn-danger btn-rounded" href="/Product/delete?id=<?=$pro->getProductId(); ?>"> <i class="fa fa-trash"></i> Delete</a>
+               <a class="btn btn-info btn-rounded" href="/Product/update?id=<?=$pro->getProductId(); ?>"><i class="fa fa-edit"></i> Update</a>
+            </td>
+         </tr>
+         <?php
+            }
+            }
+            ?>
+
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                            <th> Product Id</th>
+                            <th>Product Image</th>
+                            <th>Category</th>
+                            <th>Product </th>
+                            <th>Price(per Item)</th>
+                            <th>Total Quantity</th>
+                            <th>Status</th>
+                            <th>Date_Created</th>
+                            <th>Action</th>
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php $this->headScript()->prependFile('/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'); ?>
+<?php $this->headScript()->captureStart(); ?>
+$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+$('#editable-datatable').editableTableWidget().numericInputExample().find('td:first').focus();
+$(document).ready(function() {
+$('#editable-datatable').DataTable();
+});
+<?php $this->headScript()->captureEnd(); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/numeric-input-example.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/mindmup-editabletable.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/datatables/datatables.min.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js'); ?>

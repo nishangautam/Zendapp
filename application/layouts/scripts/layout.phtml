@@ -1,0 +1,76 @@
+<?php echo $this->doctype('HTML5') ?>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png">
+    <title>Store keeper</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+  <?php  
+      $this->headLink()->appendStylesheet('/ampleadmin/bootstrap/dist/css/bootstrap.min.css');
+     $this->headLink()->appendStylesheet("/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css");
+     $this->headLink()->appendStylesheet("/ampleadmin/css/animate.css");
+    $this->headLink()->appendStylesheet("/ampleadmin/css/style.css");
+     $this->headLink()->appendStylesheet("/ampleadmin/css/colors/blue-dark.css");
+     // $this->headLink()->appendStylesheet("http://store-keeper/css/colors/blue-dark.css");
+     // $this->headLink()->appendStylesheet("");
+     
+
+
+       
+     echo $this->headLink();
+   ?>
+   
+   
+  </head>
+  <body class="fix-header">
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+      <?php include_once("navbar.phtml")?>
+      
+      <?php include_once("leftside.phtml")?>
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+
+      <?php echo $this->layout()->content ?>
+
+      </div><!-- /.content-wrapper -->
+
+      <?php include_once("footer.phtml")?>
+
+    </div><!-- ./wrapper -->
+    
+    <?php $this->headScript()->prependFile('/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'); ?>
+    <?php $this->headScript()->prependFile('/ampleadmin/js/validator.js'); ?>
+    <?php $this->headScript()->prependFile('/ampleadmin/js/custom.min.js'); ?>
+    <?php $this->headScript()->prependFile('/ampleadmin/js/waves.js'); ?>
+    <?php $this->headScript()->prependFile('/ampleadmin/js/jquery.slimscroll.js'); ?>
+    <?php $this->headScript()->prependFile('/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js'); ?>
+    <?php $this->headScript()->prependFile('/ampleadmin/bootstrap/dist/js/bootstrap.min.js'); ?>
+    <?php $this->headScript()->prependFile('/plugins/bower_components/jquery/dist/jquery.min.js'); ?>
+
+   
+          
+  
+<?php echo $this->headScript(); ?>
+
+
+
+        <script>
+        $(function () {
+            $('.sidebar-menu li a').filter(function () { return this.href == location.href }).parent().addClass('active').siblings().removeClass('active')
+            $('.sidebar-menu li a').click(function () {
+                $(this).parent().addClass('active').siblings().removeClass('active')
+            })
+        });
+    </script>
+  </body>
+</html>

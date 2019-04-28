@@ -1,0 +1,94 @@
+
+
+
+
+<!--  -->
+<div id="page-wrapper">
+   <div class="container-fluid">
+      <div class="row bg-title">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="white-box">
+                  <h3 class="box-title">Supplier Table</h3>
+                  <p class="text-muted">This is the table of Supplier Detail</p>
+                  <table class="table table-striped table-bordered" id="editable-datatable">
+                     <thead>
+                        <tr>
+                            <th>Supplier Id</th>
+                            <th>image</th>
+                            <th>Supplier Name</th>
+                            <th>Supplier Address</th>
+                            <th>Supplier Email</th>
+                            <th>Supplier Contact</th>
+                            <th>Status</th>
+                            <th>Page Count</th>
+                            <th>Date_created</th>
+                           <th>Action</th>
+          
+                        </tr>
+                     </thead>
+                     <tbody>
+                       <?php if($this->suppliers){
+            foreach($this->suppliers as $sup){
+              ?>
+                        <tr id="1" class="gradeX">
+                         <td><?=$sup->getSupplierId(); ?> </td>
+                <td ><img width="100px" height="100px" src="/images/<?= $sup->getImage(); ?>"></td>      
+                <td><?=$sup->getName();?></td>
+                <td><?=$sup->getAddress();?></td>
+                <td><?=$sup->getEmail();?></td>
+                <td><?=$sup->getContact();?></td>
+                <td><?php  if($sup->getStatus()){ echo 'Publish'; }else{ echo 'UnPublish';} ?></td>
+                <td><?= $sup->getPurchaseCount(); ?></td>
+                <td><?=$sup->getCreatedDate(); ?></td>
+                   <td>
+                    <?php if(!$sup->getStatus()){ ?>
+                              <a href="/Supplier/activate?id=<?=$sup->getSupplierId();?>" class="btn btn-success btn-sm"><i class="fa fa-thumbs-up"></i> Publish</a>
+                          <?php } ?>
+                          <?php if($sup->getStatus()){ ?>
+                         <a href="/Supplier/deactivate?id=<?=$sup->getSupplierId();?>" class="btn btn-warning btn-sm"><i class="fa fa-thumbs-down"></i> unPublish</a>
+                          <?php } ?>
+                            <a class="btn btn-danger" href="/Supplier/delete?id=<?=$sup->getSupplierId(); ?>"> <i class="fa fa-trash"></i> Delete</a>
+                            <a class="btn btn-secondary" href="/Supplier/update?id=<?=$sup->getSupplierId(); ?>"><i class="fa fa-edit"></i> Update</a>
+                  </td>
+          </tr>
+          <?php
+
+            }
+          }
+ ?>
+
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                           <th>Customer Id</th>
+                            <th>image</th>
+                            <th>Customer Name</th>
+                            <th>Customer Address</th>
+                            <th>Customer Email</th>
+                            <th>Customer Contact</th>
+                            <th>Status</th>
+                            <th>Page Count</th>
+                            <th>Date_created</th>
+                           <th>Action</th>
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php $this->headScript()->prependFile('/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'); ?>
+<?php $this->headScript()->captureStart(); ?>
+$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+$('#editable-datatable').editableTableWidget().numericInputExample().find('td:first').focus();
+$(document).ready(function() {
+$('#editable-datatable').DataTable();
+});
+<?php $this->headScript()->captureEnd(); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/numeric-input-example.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/mindmup-editabletable.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/datatables/datatables.min.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js'); ?>

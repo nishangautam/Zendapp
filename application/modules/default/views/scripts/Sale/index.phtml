@@ -1,0 +1,67 @@
+<!--  -->
+<div id="page-wrapper">
+   <div class="container-fluid">
+      <div class="row bg-title">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="white-box">
+                  <h3 class="box-title">Sale Table</h3>
+                  <p class="text-muted">This is the table of Sale Detail</p>
+                  <table class="table table-striped table-bordered" id="editable-datatable">
+                     <thead>
+                        <tr>
+                           <th>S.N</th>
+                            <th>Customer Name:</th>
+                            <th>Date</th>
+                            <th>Total(.Rs)</th>
+                            <th>Action</th>  
+                      </tr>
+                     </thead>
+                     <tbody>
+                           <?php if($this->sales){
+              foreach ($this->sales as $sal) {
+                ?>
+         
+                        <tr id="1" class="gradeX">
+                          <td><?=$sal->getSaleId(); ?></td>
+                <td><?=$sal->getCustomer()->getName(); ?></td>
+                <td><?=$sal->getCreatedDate(); ?></td>
+                <td><?=$sal->getAmount(); ?> </td>
+                
+                <td> <a class="btn btn-info btn-rounded" href="/Sale/view?id=<?=$sal->getSaleId(); ?>"> <i class="fa fa-eye"></i> View</a>
+                 <a class="btn btn-danger btn-rounded " href="/Sale/delete?id=<?=$sal->getSaleId(); ?>"> <i class="fa fa-trash"></i> Delete</a></td>
+               
+          </tr>
+            <?php
+            }
+            }
+            ?>
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                           <th>S.N</th>
+                            <th>Customer Name</th>
+                            <th>Date</th>
+                            <th>Total(.Rs)</th>
+                            <th>Action</th> 
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php $this->headScript()->prependFile('/plugins/bower_components/styleswitcher/jQuery.style.switcher.js'); ?>
+<?php $this->headScript()->captureStart(); ?>
+$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+$('#editable-datatable').editableTableWidget().numericInputExample().find('td:first').focus();
+$(document).ready(function() {
+$('#editable-datatable').DataTable();
+});
+<?php $this->headScript()->captureEnd(); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/numeric-input-example.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/tiny-editable/mindmup-editabletable.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/datatables/datatables.min.js'); ?>
+<?php $this->headScript()->prependFile('/plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js'); ?>
